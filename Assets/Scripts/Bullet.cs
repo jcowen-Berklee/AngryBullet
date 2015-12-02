@@ -1,9 +1,9 @@
+//from Github/Ranux
+
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    #region Fields
-
     private bool _isDragged = false;
     private bool _isFired = false;
     private Vector3 _startPosition;
@@ -17,15 +17,6 @@ public class Bullet : MonoBehaviour
 
     private const float LineWidth = 1.0f;
     private Vector2 _originalMousePosition;
-    
-
-    #endregion
-
-    #region Properties
-
-    #endregion
-
-    #region Functions
 
     void Start()
     {
@@ -42,12 +33,12 @@ public class Bullet : MonoBehaviour
             transform.position = new Vector3(hitPoint.x, hitPoint.y, 0);
             float impulse = (_originalPosition.x - transform.position.x) + ImpulseIncreaseValue;
 
-            rigidbody.useGravity = true;
+            GetComponent<Rigidbody>().useGravity = true;
 
             // bullet direction
    
             Vector3 direction = new Vector3(_originalPosition.x - transform.position.x, _originalPosition.y - transform.position.y, 0);
-			rigidbody.velocity = direction*impulse;
+			GetComponent<Rigidbody>().velocity = direction*impulse;
 			Debug.DrawLine(_originalPosition, transform.position, Color.red);
             
         }
@@ -81,12 +72,12 @@ public class Bullet : MonoBehaviour
         transform.position = _startPosition;
         transform.rotation = _startRotation;
         _isFired = false;
-		rigidbody.useGravity = false;
+		GetComponent<Rigidbody>().useGravity = false;
 
-        if (rigidbody != null)
+        if (GetComponent<Rigidbody>() != null)
         {
-            rigidbody.velocity = Vector3.zero;
-            rigidbody.angularVelocity = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
     }
 
@@ -98,8 +89,4 @@ public class Bullet : MonoBehaviour
             Application.LoadLevel("Level1");
         }
     }
-
-
-
-    #endregion
 }
